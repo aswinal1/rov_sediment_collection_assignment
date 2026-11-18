@@ -1,0 +1,27 @@
+# GOAL: Requested sediment collection parameters
+float32 target_penetration_cm   # Desired core/scoop depth into seabed (e.g., 15.0 cm)
+float32 max_torque_nm           # Safety torque threshold for rock/obstruction detection (e.g., 25.0 Nm)
+float32 timeout_sec             # Maximum allowed duration for the entire sequence (e.g., 30.0 s)
+---
+# RESULT: Final outcome of the sediment collection sequence
+uint8 ERR_NONE=0
+uint8 ERR_PRECHECK_FAILED=1
+uint8 ERR_OVER_TORQUE=2
+uint8 ERR_STATION_KEEPING_LOST=3
+uint8 ERR_SENSOR_TIMEOUT=4
+uint8 ERR_EXECUTION_TIMEOUT=5
+uint8 ERR_USER_CANCELED=6
+uint8 ERR_ESTOP=7
+uint8 ERR_NODE_DEACTIVATED=8
+uint8 ERR_HARDWARE_FAULT=9
+
+bool success
+uint8 error_code
+float32 collected_depth_cm      # Actual seabed penetration achieved before sealing
+string status_message           # Human-readable summary of completion or abort cause
+---
+# FEEDBACK: Continuous progress updates during execution
+string current_phase            # e.g., PRE_CHECK, DEPLOYING_ARM, PENETRATING_SEABED, SAFE_ABORT_RETRACT
+float32 progress_pct            # Overall completion percentage (0.0 to 100.0)
+float32 current_penetration_cm  # Live penetration depth
+float32 current_torque_nm       # Live axial torque reading
